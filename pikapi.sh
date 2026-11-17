@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ "$EUID" -eq 0 ] && [ -n "$SUDO_USER" ] && exec sudo -u "$SUDO_USER" bash "$0" "$@"
+
 echo "Fedora Terminal Zsh, Kitty ve Fastfetch Scripti Başlatılıyor..."
 sudo dnf update -y
 
@@ -36,7 +38,7 @@ cat << 'EOF' > ~/.config/fastfetch/config.jsonc
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    "source": "/home/*****/pikapi.png",
+    "source": "/home/xmtaha/Resimler/pikapi.png",
     "type": "kitty",
     "width": 28,
     "height": 12,
@@ -80,8 +82,7 @@ zstyle ':completion:*' menu select
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source /usr/share/fzf/shell/key-bindings.zsh
-source /usr/share/fzf/shell/completion.zsh
+source <(fzf --zsh)   # key-bindings + completion (fzf 0.48+; completion.zsh artık yok)
 
 PROMPT='%B%F{white}%n@%m%f%b 
 $ '
